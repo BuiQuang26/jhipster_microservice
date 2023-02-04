@@ -1,0 +1,36 @@
+// jhipster jdl project.jdl --force --blueprints entity-audit --incremental-changelog --enable-swagger-codegen --skip-install
+
+application {
+    config {
+        baseName gateway
+        applicationType gateway
+        authenticationType jwt
+        buildTool maven
+        databaseType sql
+        packageName com.quangbui26
+        prodDatabaseType mysql
+        serverPort 8080
+    }
+}
+
+application {
+    config {
+        baseName bookService
+        applicationType microservice
+        authenticationType jwt
+        buildTool maven
+        databaseType sql
+        packageName com.quangbui26
+        prodDatabaseType mysql
+        serverPort 8081
+    }
+    entities Book
+    service * with serviceImpl
+}
+
+entity Book {
+    id Long
+    name String
+    description String
+    author String
+}
