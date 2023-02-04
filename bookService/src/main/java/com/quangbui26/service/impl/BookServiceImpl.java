@@ -3,10 +3,13 @@ package com.quangbui26.service.impl;
 import com.quangbui26.domain.Book;
 import com.quangbui26.repository.BookRepository;
 import com.quangbui26.service.BookService;
-import java.util.List;
+import com.quangbui26.service.dto.BookDTO;
+import com.quangbui26.service.mapper.BookMapper;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,56 +24,56 @@ public class BookServiceImpl implements BookService {
 
     private final BookRepository bookRepository;
 
-    public BookServiceImpl(BookRepository bookRepository) {
+    private final BookMapper bookMapper;
+
+    public BookServiceImpl(BookRepository bookRepository, BookMapper bookMapper) {
         this.bookRepository = bookRepository;
+        this.bookMapper = bookMapper;
     }
 
     @Override
-    public Book save(Book book) {
-        log.debug("Request to save Book : {}", book);
-        return bookRepository.save(book);
+    public BookDTO save(BookDTO bookDTO) {
+        log.debug("Request to save Book : {}", bookDTO);
+        Book book = bookMapper.toEntity(bookDTO);
+        book = bookRepository.save(book);
+        return bookMapper.toDto(book);
     }
 
     @Override
-    public Book update(Book book) {
-        log.debug("Request to update Book : {}", book);
-        return bookRepository.save(book);
+    public BookDTO update(BookDTO bookDTO) {
+        log.debug("Request to update Book : {}", bookDTO);
+        Book book = bookMapper.toEntity(bookDTO);
+        book = bookRepository.save(book);
+        return bookMapper.toDto(book);
     }
 
     @Override
-    public Optional<Book> partialUpdate(Book book) {
-        log.debug("Request to partially update Book : {}", book);
+    public Optional<BookDTO> partialUpdate(BookDTO bookDTO) {
+        log.debug("Request to partially update Book : {}", bookDTO);
 
         return bookRepository
-            .findById(book.getId())
+            .findById(bookDTO.getId())
             .map(existingBook -> {
-                if (book.getName() != null) {
-                    existingBook.setName(book.getName());
-                }
-                if (book.getDescription() != null) {
-                    existingBook.setDescription(book.getDescription());
-                }
-                if (book.getAuthor() != null) {
-                    existingBook.setAuthor(book.getAuthor());
-                }
+                bookMapper.partialUpdate(existingBook, bookDTO);
 
                 return existingBook;
             })
-            .map(bookRepository::save);
+            .map(bookRepository::save)
+            .map(bookMapper::toDto);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<Book> findAll() {
+    public Page<BookDTO> findAll(Pageable pageable) {
         log.debug("Request to get all Books");
-        return bookRepository.findAll();
+        return bookRepository.findAll(pageable).map(bookMapper::toDto);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<Book> findOne(Long id) {
+    public Optional<BookDTO> findOne(Long id) {
         log.debug("Request to get Book : {}", id);
-        return bookRepository.findById(id);
+        return bookRepository.findById(id).map(bookMapper::toDto);
     }
 
     @Override

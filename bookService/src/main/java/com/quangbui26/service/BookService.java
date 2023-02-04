@@ -1,43 +1,45 @@
 package com.quangbui26.service;
 
-import com.quangbui26.domain.Book;
-import java.util.List;
+import com.quangbui26.service.dto.BookDTO;
 import java.util.Optional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 /**
- * Service Interface for managing {@link Book}.
+ * Service Interface for managing {@link com.quangbui26.domain.Book}.
  */
 public interface BookService {
     /**
      * Save a book.
      *
-     * @param book the entity to save.
+     * @param bookDTO the entity to save.
      * @return the persisted entity.
      */
-    Book save(Book book);
+    BookDTO save(BookDTO bookDTO);
 
     /**
      * Updates a book.
      *
-     * @param book the entity to update.
+     * @param bookDTO the entity to update.
      * @return the persisted entity.
      */
-    Book update(Book book);
+    BookDTO update(BookDTO bookDTO);
 
     /**
      * Partially updates a book.
      *
-     * @param book the entity to update partially.
+     * @param bookDTO the entity to update partially.
      * @return the persisted entity.
      */
-    Optional<Book> partialUpdate(Book book);
+    Optional<BookDTO> partialUpdate(BookDTO bookDTO);
 
     /**
      * Get all the books.
      *
+     * @param pageable the pagination information.
      * @return the list of entities.
      */
-    List<Book> findAll();
+    Page<BookDTO> findAll(Pageable pageable);
 
     /**
      * Get the "id" book.
@@ -45,7 +47,7 @@ public interface BookService {
      * @param id the id of the entity.
      * @return the entity.
      */
-    Optional<Book> findOne(Long id);
+    Optional<BookDTO> findOne(Long id);
 
     /**
      * Delete the "id" book.

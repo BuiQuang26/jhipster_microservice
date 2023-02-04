@@ -1,35 +1,36 @@
 {
   "applications": ["bookService"],
-  "changelogDate": "20230204030721",
+  "changelogDate": "20230204092502",
   "clientRootFolder": "bookService",
   "databaseType": "sql",
   "dto": "mapstruct",
   "embedded": false,
-  "entityTableName": "book",
+  "entityTableName": "post",
   "fields": [
     {
       "fieldName": "id",
       "fieldType": "Long"
     },
     {
-      "fieldName": "name",
+      "fieldName": "title",
       "fieldType": "String",
       "fieldValidateRules": ["required"]
     },
     {
-      "fieldName": "description",
+      "fieldName": "content",
       "fieldType": "String",
       "fieldValidateRules": ["required"]
     },
     {
-      "fieldName": "author",
-      "fieldType": "String"
+      "fieldName": "user",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
     }
   ],
   "fluentMethods": true,
   "jpaMetamodelFiltering": false,
   "microserviceName": "bookService",
-  "name": "Book",
+  "name": "Post",
   "pagination": "pagination",
   "readOnly": false,
   "relationships": [],

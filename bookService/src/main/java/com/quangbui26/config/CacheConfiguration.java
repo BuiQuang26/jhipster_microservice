@@ -46,6 +46,8 @@ public class CacheConfiguration {
     @Bean
     public JCacheManagerCustomizer cacheManagerCustomizer() {
         return cm -> {
+            createCache(cm, com.quangbui26.domain.Book.class.getName());
+            createCache(cm, com.quangbui26.domain.Post.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

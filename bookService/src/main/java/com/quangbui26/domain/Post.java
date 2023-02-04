@@ -7,13 +7,13 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
- * A Book.
+ * A Post.
  */
 @Entity
-@Table(name = "book")
+@Table(name = "post")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @SuppressWarnings("common-java:DuplicatedBlocks")
-public class Book implements Serializable {
+public class Post implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -23,15 +23,16 @@ public class Book implements Serializable {
     private Long id;
 
     @NotNull
-    @Column(name = "name", nullable = false)
-    private String name;
+    @Column(name = "title", nullable = false)
+    private String title;
 
     @NotNull
-    @Column(name = "description", nullable = false)
-    private String description;
+    @Column(name = "content", nullable = false)
+    private String content;
 
-    @Column(name = "author")
-    private String author;
+    @NotNull
+    @Column(name = "user", nullable = false)
+    private String user;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -39,7 +40,7 @@ public class Book implements Serializable {
         return this.id;
     }
 
-    public Book id(Long id) {
+    public Post id(Long id) {
         this.setId(id);
         return this;
     }
@@ -48,43 +49,43 @@ public class Book implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return this.name;
+    public String getTitle() {
+        return this.title;
     }
 
-    public Book name(String name) {
-        this.setName(name);
+    public Post title(String title) {
+        this.setTitle(title);
         return this;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getDescription() {
-        return this.description;
+    public String getContent() {
+        return this.content;
     }
 
-    public Book description(String description) {
-        this.setDescription(description);
+    public Post content(String content) {
+        this.setContent(content);
         return this;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setContent(String content) {
+        this.content = content;
     }
 
-    public String getAuthor() {
-        return this.author;
+    public String getUser() {
+        return this.user;
     }
 
-    public Book author(String author) {
-        this.setAuthor(author);
+    public Post user(String user) {
+        this.setUser(user);
         return this;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setUser(String user) {
+        this.user = user;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
@@ -94,10 +95,10 @@ public class Book implements Serializable {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof Book)) {
+        if (!(o instanceof Post)) {
             return false;
         }
-        return id != null && id.equals(((Book) o).id);
+        return id != null && id.equals(((Post) o).id);
     }
 
     @Override
@@ -109,11 +110,11 @@ public class Book implements Serializable {
     // prettier-ignore
     @Override
     public String toString() {
-        return "Book{" +
+        return "Post{" +
             "id=" + getId() +
-            ", name='" + getName() + "'" +
-            ", description='" + getDescription() + "'" +
-            ", author='" + getAuthor() + "'" +
+            ", title='" + getTitle() + "'" +
+            ", content='" + getContent() + "'" +
+            ", user='" + getUser() + "'" +
             "}";
     }
 }

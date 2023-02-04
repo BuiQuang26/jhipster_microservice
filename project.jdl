@@ -24,13 +24,23 @@ application {
         prodDatabaseType mysql
         serverPort 8081
     }
-    entities Book
+    entities Book, Post
     service * with serviceImpl
+
+    paginate * with pagination
+    dto * with mapstruct
 }
 
 entity Book {
     id Long
-    name String
-    description String
+    name String required
+    description String required
     author String
+}
+
+entity Post {
+    id Long
+    title String required
+    content String required
+    user String required
 }
